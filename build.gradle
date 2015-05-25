@@ -1,0 +1,68 @@
+apply plugin: 'java'
+apply plugin: 'maven'
+apply plugin: 'application'
+
+repositories {
+    mavenLocal()
+    mavenCentral()
+}
+
+List dmLogging = [
+        //"ch.qos.logback:logback-classic:1.1.3"
+]
+List dmGuava = [
+        "com.google.guava:guava:18.0"
+]
+List dmTest = [
+        "junit:junit:4.12",
+        "org.mockito:mockito-all:1.9.0"]
+List dmSparkJava = [
+        "com.sparkjava:spark-core:2.1",
+        "com.fasterxml.jackson.core:jackson-core:2.3.0",
+        "com.fasterxml.jackson.core:jackson-databind:2.3.0"
+]
+List dmRetrofit = [
+        "com.squareup.retrofit:retrofit:1.9.0",
+        "com.squareup.okhttp:okhttp-urlconnection:2.2.0",
+        "com.squareup.okhttp:okhttp:2.2.0"
+]
+List dmAkka = [
+        "com.typesafe.akka:akka-actor_2.10:2.3.11",
+        "com.typesafe.akka:akka-persistence-experimental_2.10:2.3.11",
+        "com.typesafe.akka:akka-cluster_2.10:2.3.11",
+        "com.typesafe.akka:akka-slf4j_2.10:2.3.11",
+        "org.scala-lang:scala-library:2.10.3"
+]
+
+
+dependencies {
+    compile dmLogging, dmGuava, dmSparkJava, dmRetrofit, dmAkka
+    testCompile dmTest
+}
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+version = '1.0'
+
+jar {
+    manifest {
+        attributes 'Implementation-Title': 'Research AKKA', 'Implementation-Version': version
+    }
+}
+
+uploadArchives {
+    repositories {
+        mavenLocal()
+    }
+}
+
+task pom << {
+    println "${project.group}::${project.version}"
+    pom {
+        project {
+            groupId 'me.roybailey'
+            artifactId 'research-akka'
+            version '1.0.0-SNAPSHOT'
+        }
+    }.writeTo("pom.xml")
+}
