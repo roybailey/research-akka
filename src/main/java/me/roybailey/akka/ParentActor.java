@@ -9,13 +9,12 @@ import akka.event.LoggingAdapter;
 import java.util.UUID;
 
 /**
- * ParentActor receives an instance of Command and emits an Event to the ChildActor.
- *
- * @author royrusso
+ * ParentActor receives an instance of Command and sends an Event to
+ * both the ChildActor and EmitterActor.
  */
 public class ParentActor extends UntypedActor {
 
-    LoggingAdapter log = Logging.getLogger(getContext().system(), this);
+    LoggingAdapter LOG = Logging.getLogger(getContext().system(), this);
 
     private final ActorRef childActor;
     private final ActorRef emitterActor;
@@ -28,7 +27,7 @@ public class ParentActor extends UntypedActor {
     @Override
     public void onReceive(Object msg) throws Exception {
 
-        log.info("Received Command: " + msg);
+        LOG.info("Received Command: " + msg);
 
         if (msg instanceof Command) {
             final String data = ((Command) msg).getData();
@@ -37,7 +36,7 @@ public class ParentActor extends UntypedActor {
             childActor.tell(event, getSelf());
             emitterActor.tell(event, getSelf());
         } else if (msg.equals("echo")) {
-            log.info("ECHO!");
+            LOG.info("ECHO!");
         }
     }
 }

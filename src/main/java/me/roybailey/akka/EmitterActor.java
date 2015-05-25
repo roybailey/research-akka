@@ -8,11 +8,12 @@ import java.util.concurrent.atomic.AtomicLong;
 
 
 /**
- * The Emitter receives a Command and emits Events that are picked up by subscribed Handler. The Handler is listening for emitted Event.class
+ * The Emitter receives an Event and emits Notifications that are picked up by subscribed Handler.
+ * The Handler is listening for emitted Notification.class
  */
 public class EmitterActor extends UntypedActor {
 
-    LoggingAdapter log = Logging.getLogger(getContext().system(), this);
+    LoggingAdapter LOG = Logging.getLogger(getContext().system(), this);
     AtomicLong guid = new AtomicLong();
 
     @Override
@@ -20,7 +21,7 @@ public class EmitterActor extends UntypedActor {
 
         if (msg instanceof Event) {
 
-            log.info("Emitting Event: " + msg);
+            LOG.info("Emitting Event: " + msg);
 
             String data = ((Event) msg).getData();
 

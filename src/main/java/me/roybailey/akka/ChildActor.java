@@ -10,16 +10,16 @@ import akka.event.LoggingAdapter;
  */
 public class ChildActor extends UntypedActor {
 
-    LoggingAdapter log = Logging.getLogger(getContext().system(), this);
+    LoggingAdapter LOG = Logging.getLogger(getContext().system(), this);
 
     @Override
     public void preStart() {
-        log.info("Starting");
+        LOG.info("Starting");
     }
 
     @Override
     public void onReceive(Object msg) {
-        log.info("Received Event: " + msg);
+        LOG.info("Received Event: " + msg);
     }
 
 

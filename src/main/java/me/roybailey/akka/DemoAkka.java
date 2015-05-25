@@ -11,7 +11,8 @@ import org.slf4j.LoggerFactory;
  */
 public class DemoAkka {
 
-    public static final Logger log = LoggerFactory.getLogger(DemoAkka.class);
+    public static final Logger LOG = LoggerFactory.getLogger(DemoAkka.class);
+
 
     public static void main(String... args) throws Exception {
 
@@ -19,8 +20,11 @@ public class DemoAkka {
 
         Thread.sleep(5000);
 
-        final ActorRef handler = actorSystem.actorOf(Props.create(HandlerActor.class));
-        actorSystem.eventStream().subscribe(handler, Notification.class);
+        final ActorRef handler1 = actorSystem.actorOf(Props.create(Handler1Actor.class));
+        actorSystem.eventStream().subscribe(handler1, Notification.class);
+
+        final ActorRef handler2 = actorSystem.actorOf(Props.create(Handler2Actor.class));
+        actorSystem.eventStream().subscribe(handler2, Notification.class);
 
         final ActorRef parentActorRef = actorSystem.actorOf(Props.create(ParentActor.class), "parent-akka");
 
@@ -32,7 +36,7 @@ public class DemoAkka {
         parentActorRef.tell(new Command("CMD 5"), null);
 
         Thread.sleep(5000);
-        log.debug("Actor System Shutdown Starting...");
+        LOG.debug("Actor System Shutdown Starting...");
         actorSystem.shutdown();
     }
 }

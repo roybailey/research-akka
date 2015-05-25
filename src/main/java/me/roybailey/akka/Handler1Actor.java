@@ -29,13 +29,13 @@ import akka.event.LoggingAdapter;
  *
  * @author royrusso
  */
-public class HandlerActor extends UntypedActor {
+public class Handler1Actor extends UntypedActor {
 
-    LoggingAdapter log = Logging.getLogger(getContext().system(), this);
+    LoggingAdapter LOG = Logging.getLogger(getContext().system(), this);
 
     @Override
     public void onReceive(Object msg) throws Exception {
 
-        log.info("Handled Event: " + msg);
+        LOG.info("Handler1 Event: " + msg);
     }
 }

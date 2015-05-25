@@ -2,6 +2,9 @@ package me.roybailey.akka;
 
 import java.io.Serializable;
 
+/**
+ * Simple Command POJO
+ */
 public class Command implements Serializable {
 
     private final String data;

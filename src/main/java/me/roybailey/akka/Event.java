@@ -3,7 +3,7 @@ package me.roybailey.akka;
 import java.io.Serializable;
 
 /**
- * @author royrusso@gmail.com
+ * Simple Event POJO
  */
 public class Event implements Serializable {
 
